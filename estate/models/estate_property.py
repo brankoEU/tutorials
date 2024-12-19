@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-from importlib.metadata import requires
-
 from odoo import fields, models, api, _
 
 class EstateProperty(models.Model):
@@ -23,3 +21,7 @@ class EstateProperty(models.Model):
     garden_area = fields.Integer(string="Garden Area")
     garden_orientation = fields.Selection([('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')], string="Orientation")
     state = fields.Selection([('new', 'New'), ('offer_received', 'Offer Received'), ('sold', 'Sold')], string='State', default='new')
+    buyer_id = fields.Many2one('res.partner', string='Buyer')
+    salesman_id = fields.Many2one('res.users', string='Salesman')
+    property_type_id = fields.Many2one('estate.property.type', string='Property Type')
+    property_tag_id = fields.Many2many('estate.property.tag', string='Property Tag')

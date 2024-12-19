@@ -2,9 +2,21 @@
 <odoo>
     <data>
         <record id="action_estate_property" model="ir.actions.act_window">
-            <field name="name">Real Estate</field>
+            <field name="name">Property</field>
             <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form,search</field>
+        </record>
+
+        <record id="action_estate_property_type" model="ir.actions.act_window">
+            <field name="name">Property Type</field>
+            <field name="res_model">estate.property.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_estate_property_tag" model="ir.actions.act_window">
+            <field name="name">Property Tag</field>
+            <field name="res_model">estate.property.tag</field>
+            <field name="view_mode">tree,form</field>
         </record>
 
         <record  model="ir.ui.view" id="estate_property_view_search">
@@ -51,8 +63,10 @@
                     <sheet>
                         <group>
                             <h1><field name="name"/></h1>
+                            <field name="property_tag_id" widget="many2many_tags"/>
                             <field name="state"/>
                             <group>
+                                <field name="property_type_id"/>
                                 <field name="postcode"/>
                                 <field name="date_availability"/>
                             </group>
@@ -72,6 +86,17 @@
                                         <field name="garden_orientation"/>
                                     </group>
                                 </page>
+                                <page string="Offer">
+                                    <group>
+
+                                    </group>
+                                </page>
+                                <page string="Other Info">
+                                    <group>
+                                        <field name="salesman_id"/>
+                                        <field name="buyer_id"/>
+                                    </group>
+                                </page>
                             </notebook>
                         </group>
                     </sheet>
@@ -80,11 +105,15 @@
         </record>
 
         <menuitem id="menu_estate_root"
-                  action="action_estate_property"
                   name="Real Estate"
                   groups="group_estate_manager,group_estate_user"
                   web_icon="estate,static/description/icon.png"
                   sequence="10">
+            <menuitem id="menu_estate_properties" name="Properties" action="action_estate_property" sequence="10"/>
+            <menuitem id="menu_estate_settings" name="Settings" groups="group_estate_manager" sequence="100">
+                <menuitem id="menu_estate_types" name="Property Type" action="action_estate_property_type" sequence="10"/>
+                <menuitem id="menu_estate_tags" name="Property Tags" action="action_estate_property_tag" sequence="20"/>
+            </menuitem>
         </menuitem>
     </data>
 </odoo>
